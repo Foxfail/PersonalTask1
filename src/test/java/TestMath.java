@@ -14,7 +14,7 @@ import java.util.ArrayList;
 @Title("Operand-allure-test")
 public class TestMath {
 
-    // в этом массиве будут хранится разложен
+    // в этом массиве будут хранится разложенные на элементы строки
     private static final ArrayList<DecomposedLine> decomposedLines = new ArrayList<>();
 
     @BeforeClass
@@ -54,6 +54,28 @@ public class TestMath {
         System.out.println("Завершено");
     }
 
+    @Test
+    public void testMath() {
+        System.out.println("Начинаем тесты");
+
+        for (DecomposedLine decomposedLine : decomposedLines) {
+            switch (decomposedLine.getOperation()) {
+                case ('+'):
+                    testAdd(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
+                    break;
+                case ('-'):
+                    testSub(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
+                    break;
+                case ('/'):
+                    testDiv(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
+                    break;
+                case ('*'):
+                    testMulty(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
+                    break;
+            }
+        }
+    }
+
     @Step
     private static void testAdd(float operand1, float operand2, float expectedResult) {
         float actualresult = operand1 + operand2;
@@ -82,27 +104,7 @@ public class TestMath {
         Assert.assertEquals(expectedResult, actualresult, 0.0);
     }
 
-    @Test
-    public void testMath() {
-        System.out.println("Начинаем тесты");
 
-        for (DecomposedLine decomposedLine : decomposedLines) {
-            switch (decomposedLine.getOperation()) {
-                case ('+'):
-                    testAdd(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
-                    break;
-                case ('-'):
-                    testSub(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
-                    break;
-                case ('/'):
-                    testDiv(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
-                    break;
-                case ('*'):
-                    testMulty(decomposedLine.getOperand1(), decomposedLine.getOperand2(), decomposedLine.getResult());
-                    break;
-            }
-        }
-    }
 
     // вложенный класс в котором хранятся по отдельности операнды, результат и операция,
     // для удобства/наглядности работы со строкой из файла
