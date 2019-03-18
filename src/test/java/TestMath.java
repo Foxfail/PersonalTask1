@@ -40,7 +40,7 @@ public class TestMath {
             decomposedLines.add(decomposedLine);
         }
 
-        // тут я решил немного почистить память
+        // немного почистить память
         decomposedLines.trimToSize();
         bufferedReader.close();
 
